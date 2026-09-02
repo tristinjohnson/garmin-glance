@@ -1,0 +1,25 @@
+# --- Generated dashboard output + local cache (embed personal health data) ---
+**/index.html
+**/.dashboard_cache.json
+
+# --- Garmin auth tokens: NEVER commit ---
+.garminconnect/
+garmin_tokens.json
+*_base64
+
+# --- Local overrides ---
+config.local.toml
+
+# --- Python / tooling ---
+__pycache__/
+*.pyc
+.venv/
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+
+# --- macOS ---
+.DS_Store

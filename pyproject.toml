@@ -1,0 +1,74 @@
+[project]
+name = "garmin-dashboard"
+version = "0.1.0"
+description = "Self-contained triathlon training dashboard generated from Garmin Connect data"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Tristin Johnson" }]
+keywords = ["garmin", "triathlon", "running", "cycling", "training", "dashboard"]
+dependencies = [
+    "garminconnect==0.3.2",
+    "jinja2>=3.1",
+]
+
+[project.urls]
+Homepage = "https://github.com/Taxuspt/garmin_mcp"
+
+[project.scripts]
+garmin-dashboard = "garmin_dashboard.cli:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.6",
+    "mypy>=1.11",
+    "pre-commit>=3.8",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["garmin_dashboard"]
+artifacts = ["garmin_dashboard/templates/**", "garmin_dashboard/static/**"]
+
+[tool.uv]
+# Don't install this project into the venv -- run it with `uv run dashboard.py`
+# or `uv run python -m garmin_dashboard`. Avoids uv's editable-install .pth, which
+# recent CPython skips on macOS because uv marks files inside .venv as hidden.
+package = false
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = ["simple-garmin-dashboard"]  # frozen single-file prototype
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101"]
+
+[tool.mypy]
+python_version = "3.11"
+files = ["garmin_dashboard", "tests", "scripts"]
+strict = true
+warn_unreachable = true
+disallow_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = ["garminconnect.*"]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["tests.*"]
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+pythonpath = ["."]

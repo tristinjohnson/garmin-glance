@@ -1,0 +1,21 @@
+# Dashboard configuration. Race names + dates are not sensitive, so this file
+# is committed. Copy to config.local.toml (gitignored) to override locally.
+
+[windows]
+load_weeks = 12          # CTL / ATL / TSB + VO2 max trend
+recovery_weeks = 6       # HRV / resting HR / sleep
+mileage_weeks = 12       # weekly run/bike/swim volume + time
+table_days = 28          # recent-activities table
+refetch_recent_days = 3  # always re-pull the last N days (data still settling)
+
+[[races]]
+name = "Around the Crown 10K"
+date = 2026-09-06
+
+[[races]]
+name = "IRONMAN 70.3 Augusta"
+date = 2026-09-27
+
+[[races]]
+name = "Space Coast Marathon"
+date = 2026-11-22
