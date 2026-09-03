@@ -1,9 +1,10 @@
-# Garmin Training Dashboard
+# garmin-glance
 
-A self-contained running / triathlon training dashboard built from
-[Garmin Connect](https://connect.garmin.com) data. It pulls your training load,
-weekly volume, recovery and race predictions and writes a single `index.html`
-you open in a browser — no server, no build step, re-run any time to refresh.
+**garmin-glance** is a self-contained running / triathlon training dashboard
+built from [Garmin Connect](https://connect.garmin.com) data. It pulls your
+training load, weekly volume, recovery and race predictions and writes a single
+`index.html` you open in a browser — no server, no build step, re-run any time to
+refresh.
 
 <!-- After you push, replace OWNER/REPO below with your GitHub path. -->
 ![CI](https://github.com/OWNER/REPO/actions/workflows/ci.yml/badge.svg)
@@ -47,7 +48,24 @@ uvx --python 3.12 --from git+https://github.com/Taxuspt/garmin_mcp garmin-mcp-au
 It prompts for your Garmin email, password, and an MFA code if you have one
 enabled. The same tokens are shared with the MCP server (below).
 
-### 2. Build the dashboard
+### 2. Add your races and tune the windows
+
+Open [`config.toml`](config.toml) and edit the `[[races]]` blocks so the
+countdown and race panel point at *your* events — one block per race:
+
+```toml
+[[races]]
+name = "Space Coast Marathon"
+date = 2026-11-22
+```
+
+The `[windows]` defaults (12-week load, 6-week recovery, 28-day activity table)
+are fine to leave alone. Nothing here is secret, so `config.toml` is committed;
+if you'd rather keep your races out of git, put them in a `config.local.toml`
+next to it instead (gitignored, same format, overrides `config.toml`). Full
+reference in [Configuration](#configuration) below.
+
+### 3. Build the dashboard
 
 ```bash
 uv run dashboard.py             # fetch + render ./index.html

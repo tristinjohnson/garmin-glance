@@ -1,8 +1,4 @@
-# /// script
-# requires-python = ">=3.11"
-# dependencies = ["garminconnect==0.3.2", "jinja2>=3.1"]
-# ///
-"""Thin launcher for the ``garmin_dashboard`` package.
+"""Thin launcher for the ``garmin_dashboard`` package. requires-python = ">=3.11".
 
     uv run dashboard.py                 # fetch + render ./index.html
     uv run dashboard.py --demo          # synthetic data, no Garmin login
